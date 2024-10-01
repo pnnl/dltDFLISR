@@ -1,0 +1,41 @@
+{
+    "communication_area_agent_default":{
+        "_comment1":"delay in seconds and lost in pu",
+        "message_delay":[0.013,2.0],
+        "message_lost":0.00001
+    },
+    "communication_area_agent_specific":{
+        "area_99_area_98":{
+            "message_delay":[0.013,2.0],
+            "message_lost":0.00001
+        },
+        "area_99_area_98":{
+            "message_delay":[0.013,2.0],
+            "message_lost":0.00001
+        },
+        "area_99_area_98":{
+            "message_delay":[0.013,2.0],
+            "message_lost":0.00001
+        },
+        "area_99_area_98":{
+            "message_delay":[0.013,2.0],
+            "message_lost":0.00001
+        },
+        "area_99_area_98":{
+            "message_delay":[0.013,2.0],
+            "message_lost":0.00001
+        },
+        "area_99_area_98":{
+            "message_delay":[0.013,2.0],
+            "message_lost":0.00001
+        },
+        "area_99_area_98":{
+            "message_delay":[0.013,2.0],
+            "message_lost":0.00001
+        },
+        "area_99_area_98":{
+            "message_delay":[0.013,2.0],
+            "message_lost":0.5
+        }
+    }
+}

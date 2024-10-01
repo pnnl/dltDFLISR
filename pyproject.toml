@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "DLTDFLISR"
+version = "0.0.1"
+description = ""
+authors = ["Fernando <fernandob.dosreis@ieee.org>"]
+readme = "README.md"
+packages = [
+    {include = "MO", from = "src"},
+    {include = "SE", from = "src"}
+    ]
+
+[tool.poetry.dependencies]
+python = ">=3.10, <3.12"
+gridappsd-python = "2024.1.4a0"
+cim-graph = "0.1.4a0"
+gridappsd-field-bus = "2024.1.4a0"
+cvxpy = "1.2.5"
+mosek = "*"
+tabulate = "*"
+pandas = "^2.2.2"
+tables = "^3.9.2"
+numpy = "1.26.4"
+toml = "^0.10.2"
+sphinx = "^7.3.7"
+sphinx-rtd-theme = "^2.0.0"
+myst-parser = "^3.0.1"
+sphinxcontrib-plantuml = "^0.30"
+matplotlib = "^3.9.1.post1"
+h5py = "^3.11.0"
+networkx = "^3.3"
+sphinxcontrib-bibtex = "^2.6.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

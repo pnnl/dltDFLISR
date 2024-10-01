@@ -1,0 +1,103 @@
+[core] # To avoid repetition the core variables are replaced as f-strings to other entries
+base_path = "~/grid/dltdflisr"
+test_identification = "01" # string identification of simulation run for outputs
+
+[logging_configuration]
+level='debug'
+file_name='{base_path}/outputs/log_{test_identification}.log'
+format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s'
+datefmt='%Y-%m-%d %H:%M:%S'
+
+[test_case]
+[test_case.power_system_config]
+    GeographicalRegion_name = "_CC88ACDC-08A6-44E1-8435-942A817EC59B"
+    SubGeographicalRegion_name = "_F5C47A8D-8025-4F2E-9DD8-E587B4D2CA6B"
+    Line_name = "_EC8F84FC-AB8D-4C16-86CA-5F9382CD7892"
+[test_case.application_config]
+    applications = []
+[test_case.simulation_config]
+    start_time = "1563865200" # 2019-07-23 07:00:00 UTC
+    duration = "10000"
+    simulator = "GridLAB-D"
+    timestep_frequency = "1"
+    timestep_increment = "1"
+    run_realtime = false
+    simulation_name = "ieee123"
+    power_flow_solver_method = "NR"
+[test_case.simulation_config.model_creation_config]
+        load_scaling_factor = "1"
+        schedule_name = "ieeezipload"
+        z_fraction = "0"
+        i_fraction = "0"
+        p_fraction = "1"
+        randomize_zipload_fractions = false
+        use_houses = false
+[test_case.test_config]
+    events = []
+    appId = ""
+[[test_case.service_configs]]
+id = "gridappsd-sensor-simulator"
+[test_case.service_configs.user_options]
+        default-perunit-confidence-band = 0.02
+		sensors-config = {}
+		default-normal-value = 208
+		random-seed = 0
+		default-aggregation-interval = 300
+		passthrough-if-not-specified = false
+		default-perunit-drop-rate = 0.01
+		simulate-all = true
+
+[system_variables]
+OUTPUT_DIR = "{base_path}/outputs"
+BUS_CONFIG = "{base_path}/config/system_message_bus.yml"
+GRIDAPPSD_APPLICATION_ID = 'dist-admm'
+GRIDAPPSD_USER = 'system'
+GRIDAPPSD_PASSWORD = 'manager'
+GRIDAPPSD_ADDRESS = 'localhost'
+GRIDAPPSD_PORT = '61613'
+
+[app_config]
+app_id = "sample_app"
+description = "This is a GridAPPS-D sample distribution application agent DFLISR"
+
+[feeder_agent_configuration]
+start_monitoring = "1563865200" # 2019-07-23 07:00:00 UTC 60*60=3600 represents 1 hour
+message_config = "{base_path}/config/message_config_0.json" 
+initial_CB_state="CB_state_101110110"
+[feeder_agent_configuration.switch_area_names]
+area_1 = ["_B638C5AA-CF3B-4CAD-8642-AA80180F4ABA","_B5EF0B66-A734-4CE9-A91F-CDA0B8D79963"] # bus1-bus1001;bus2057-bus1010
+area_2 = ["_F49BC1A1-AEF9-42FF-BB49-7372E3AADDF7","_67CD274B-D5F3-437B-AF69-27C965416A84"] # bus1-bus2001;bus2013-bus2012
+area_3 = ["_67CD274B-D5F3-437B-AF69-27C965416A84","_52B437B2-3F6D-48B9-B797-1A475060C61C","_44ED5B6C-B46B-46F3-9F6C-9AF0B2756A4A","_9B102E65-6AF6-4492-8D45-26AE2A2A68DB"] # bus2013-bus2012;bus2013-bus3005;bus2016-bus3081;bus2021-bus2026
+area_4 = ["_9B102E65-6AF6-4492-8D45-26AE2A2A68DB","_B5EF0B66-A734-4CE9-A91F-CDA0B8D79963"] # bus2021-bus2026;bus2057-bus1010
+area_5 = ["_93D59ECF-C54C-4A78-90A5-6EC84D7B8655","_52B437B2-3F6D-48B9-B797-1A475060C61C","_50D62A2B-0697-4525-A868-ECB4518FD7ED"] # bus1-bus3001;bus2013-bus3005;bus3075-bus3076
+area_6 = ["_50D62A2B-0697-4525-A868-ECB4518FD7ED","_44ED5B6C-B46B-46F3-9F6C-9AF0B2756A4A"] # bus3075-bus3076;bus2016-bus3081
+[feeder_agent_configuration.forced_event] # Forced change of circuit breaker status open to emulate a fault event
+breaker_status_change = ["_93D59ECF-C54C-4A78-90A5-6EC84D7B8655"]
+[feeder_agent_configuration.temporal]
+maximum_delta = 3 # maximum simulation time step in seconds
+[feeder_agent_configuration.monitoring]
+file_name = "{base_path}/outputs/record_{test_identification}.h5"
+w_unprocessed_data = true # True will write the sensor data without processing and reducing the temporal frequency based on delta_time
+delta_time = 10 # Time expressed in minutes the maximum value of the sensor for that period is kept the reminder of the data is discarded
+max_rows = 200000 # Maximum row size of the dataframe 
+complevel = 1 # Compression level when writing to HDF5
+
+[area_agent_configuration]
+sensors="{base_path}/config/sensors.h5"
+connections="{base_path}/config/area_connections.h5"
+max_area_load="{base_path}/config/max_node_load.h5"
+ybus="{base_path}/config/ybus_area.h5"
+[area_agent_configuration.FLISR]
+# times are expressed in minutes
+initial_time_to_FLISR = 15
+add_time_FLISR_1 = 0
+add_time_FLISR_2 = 0
+add_time_FLISR_3 = 0
+add_time_FLISR_4 = 0
+add_time_FLISR_5 = 0
+time_to_await_other_area_status_for_fault_identification = 1.5
+# range times are expressed in seconds
+range_message_change_of_state = [30.0,60.0]
+range_message_create_paths_send = [5.0,30.0]
+range_message_respond_of_paths = [10.0,50.0]
+range_message_change_the_paths = [5.0,10.0]
