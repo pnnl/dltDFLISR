@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> This repository has been archived and is no longer maintained.
+> The code is provided for historical reference and may contain unpatched or unknown vulnerabilities.
+> It should not be used in production systems.
+
 ## Distributed Fault Location, Isolation, and Service Restoration (DFLISR)
 
 This repository contains the Distributed Fault Location, Isolation, and Service Restoration (DFLISR) application for power distribution systems. One approach to minimizing customer impact after a permanent fault is use of a fault location, isolation, and service restoration (FLISR) algorithm that reconfigures topology through a centralized controller. Permanent faults cannot be cleared by tripping and reclosing, and without a recloser, all faults are considered permanent. An autonomous, DFLISR solution would improve grid resilience. The application is focus on the data separation of switch delimited areas. More information can be found in the paper [doi:10.1109/ACCESS.2023.3287831](https://ieeexplore.ieee.org/document/10159249). The mentioned paper explores the potential of distributed ledger technology (DLT) to improve fault-tolerant grid operations. The approach is not limited to DFLISR. However, this repository is focussed exclusively on the DFLISR. 
